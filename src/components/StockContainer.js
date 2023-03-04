@@ -1,11 +1,22 @@
 import React from "react";
 import Stock from "./Stock";
 
-function StockContainer() {
+function StockContainer({ allStocks, myStocks, onSetMyStocks }) {
+  function handleClick(stock) {
+    myStocks.indexOf(stock) === -1 ? onSetMyStocks([...myStocks, stock]) : onSetMyStocks([...myStocks]);
+  }
+
   return (
     <div>
       <h2>Stocks</h2>
-      {/* render stock list here*/}
+      {allStocks.map(stock => 
+        <Stock 
+        key={stock.id} 
+        stock={stock} 
+        myStocks={myStocks} 
+        onSetMyStocks={onSetMyStocks} 
+        onHandleClick={handleClick}
+      />)}
     </div>
   );
 }
